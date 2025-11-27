@@ -17,23 +17,6 @@ Feature	Status	Description
 -> Time & Date: Get real-time system time and date
 -> Clean UI: Sidebar, stats, hints, reminder list, voice status & more
 
-📂 Project Structure
-PA-V2/
-│── backend/
-│   ├── app.py                
-│   ├── assistant.py
-│   ├── reminder_manager.py
-│   ├── speech_handler.py
-│   ├── search_ai.py
-│   ├── utils.py
-│   ├── requirements.txt
-│
-│
-│── frontend/
-│   ├── index.html
-│   ├── script.js
-│   ├── style.css
-
 Setup Guide
 1. Install Python Version
 install python 3.11.9

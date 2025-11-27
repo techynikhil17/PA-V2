@@ -67,7 +67,13 @@ When time hits →
  Voice output: "Reminder! drink water"
 
 
-<img width="1919" height="912" alt="homepage-1" src="https://github.com/user-attachments/assets/e6288d63-c1eb-4c98-9512-b8e2460516f8" />
+<img width="700" alt="homepage-1" src="https://github.com/user-attachments/assets/e6288d63-c1eb-4c98-9512-b8e2460516f8" />
+<img width="700" alt="homepage-2" src="https://github.com/user-attachments/assets/88292e9c-1a4b-456e-8b9e-07859ea69d73" />
+<img width="700" alt="math-problem" src="https://github.com/user-attachments/assets/523ccd2b-442d-4144-860a-4ddfb5ce4f96" />
+<img width="700" alt="reminder" src="https://github.com/user-attachments/assets/16d7859a-bc26-4141-9f0a-173e17505a80" />
+<img width="700" alt="reminder_triggered" src="https://github.com/user-attachments/assets/50e9dfed-8462-415d-bcd7-05664e8b0fae" />
+<img width="700" alt="time" src="https://github.com/user-attachments/assets/ba39e746-069e-411c-8f3e-253e6863a9b4" />
+<img width="700" alt="web-search" src="https://github.com/user-attachments/assets/d2c60e1b-3bb1-4921-a789-4d8215875eaa" />
 
 
 

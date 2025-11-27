@@ -67,5 +67,8 @@ When time hits →
  Voice output: "Reminder! drink water"
 
 
+<img width="1919" height="912" alt="homepage-1" src="https://github.com/user-attachments/assets/e6288d63-c1eb-4c98-9512-b8e2460516f8" />
+
+
 
 ⭐ If you liked this repo — give it a star

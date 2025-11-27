@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal AI Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar for Reminders & History -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>📋 Dashboard</h3>
+                <button class="sidebar-close" id="sidebarClose">✕</button>
+            </div>
+            
+            <!-- Reminders Section -->
+            <div class="sidebar-section">
+                <h4>⏰ Active Reminders</h4>
+                <div class="reminders-list" id="remindersList">
+                    <p class="empty-state">No active reminders</p>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="sidebar-section">
+                <h4>⚡ Quick Actions</h4>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="sendQuickCommand('What time is it?')">
+                        🕐 Current Time
+                    </button>
+                    <button class="quick-action-btn" onclick="sendQuickCommand('What\'s today\'s date?')">
+                        📅 Today's Date
+                    </button>
+                    <button class="quick-action-btn" onclick="sendQuickCommand('Calculate 25 times 4')">
+                        🧮 Quick Math
+                    </button>
+                    <button class="quick-action-btn" onclick="sendQuickCommand('What can you do?')">
+                        ❓ Help
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="sidebar-section">
+                <h4>📊 Statistics</h4>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Messages:</span>
+                        <span class="stat-value" id="messageCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Voice Commands:</span>
+                        <span class="stat-value" id="voiceCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-container">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+                    <div class="header-content">
+                        <h1 class="title">
+                            <span class="icon">🤖</span>
+                            Personal AI Assistant
+                        </h1>
+                        <p class="subtitle">Powered by Advanced AI</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="clearBtn" class="btn btn-secondary" title="Clear conversation">
+                        <span class="btn-icon">🗑️</span>
+                        Clear
+                    </button>
+                    <div class="status-indicator">
+                        <span class="status-dot" id="statusDot"></span>
+                        <span id="statusText">Connecting...</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Chat Container -->
+            <div class="chat-container" id="chatContainer">
+                <div class="welcome-message">
+                    <div class="welcome-icon">✨</div>
+                    <h2>Welcome to Your AI Assistant!</h2>
+                    <p class="welcome-subtitle">I'm here to help you with various tasks</p>
+                    
+                    <div class="capabilities-grid">
+                        <div class="capability-card">
+                            <div class="capability-icon">⏰</div>
+                            <h4>Time & Date</h4>
+                            <p>Get current time and date instantly</p>
+                        </div>
+                        <div class="capability-card">
+                            <div class="capability-icon">🧮</div>
+                            <h4>Mathematics</h4>
+                            <p>Solve calculations and equations</p>
+                        </div>
+                        <div class="capability-card">
+                            <div class="capability-icon">🔍</div>
+                            <h4>Web Search</h4>
+                            <p>Search for information online</p>
+                        </div>
+                        <div class="capability-card">
+                            <div class="capability-icon">📝</div>
+                            <h4>Reminders</h4>
+                            <p>Set and manage your reminders</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-queries">
+                        <p class="example-title">Try asking:</p>
+                        <div class="example-chips">
+                            <span class="chip" onclick="sendQuickCommand('What time is it?')">What time is it?</span>
+                            <span class="chip" onclick="sendQuickCommand('Calculate 15 times 8')">Calculate 15 times 8</span>
+                            <span class="chip" onclick="sendQuickCommand('Search for AI news')">Search for AI news</span>
+                            <span class="chip" onclick="sendQuickCommand('Remind me to exercise in 30 minutes')">Set a reminder</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-container">
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        class="text-input" 
+                        placeholder="Type your message or click the microphone..."
+                        autocomplete="off"
+                    >
+                    <button id="sendBtn" class="btn btn-primary" title="Send message">
+                        <span class="btn-icon">📤</span>
+                    </button>
+                    <button id="voiceBtn" class="btn btn-voice" title="Voice input">
+                        <span class="btn-icon" id="voiceIcon">🎤</span>
+                    </button>
+                </div>
+                <div class="input-hint">
+                    <span id="inputHint">💡 Tip: Press Enter to send, or use voice for hands-free interaction</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <p class="loading-text" id="loadingText">Processing...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

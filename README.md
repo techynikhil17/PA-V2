@@ -16,6 +16,7 @@ Feature	Status	Description
 -> Math Solver: Evaluates expressions via voice or text
 -> Time & Date: Get real-time system time and date
 -> Clean UI: Sidebar, stats, hints, reminder list, voice status & more
+
 📂 Project Structure
 PA-V2/
 │── backend/

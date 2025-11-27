@@ -1,12 +1,3 @@
-# ======================= FINAL FULL APP.PY =======================
-# Includes:
-#  - Text commands
-#  - Reminders system
-#  - History
-#  - Web search backend
-#  - Voice STT/TTS endpoints preserved
-#  - Popup trigger stable
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
@@ -31,10 +22,8 @@ speech = SpeechHandler()
 
 last_popup_sent = None
 
+#HEALTH + HOME ROUTES
 
-# ================================================================
-#                      HEALTH + HOME ROUTES
-# ================================================================
 @app.route("/")
 def home():
     return jsonify({"status": "OK", "features": 7})
@@ -49,10 +38,8 @@ def health_check():
         "speech_input_available": speech.test_microphone()
     })
 
+#TEXT PROCESSING
 
-# ================================================================
-#                     TEXT PROCESSING
-# ================================================================
 @app.route("/process", methods=["POST"])
 def process_cmd():
     try:
@@ -67,10 +54,8 @@ def process_cmd():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
 
+#SPEECH TO TEXT
 
-# ================================================================
-#                    SPEECH TO TEXT (OPTIONAL BACKEND)
-# ================================================================
 @app.route('/listen', methods=['POST'])
 def listen_command():
     try:
@@ -80,7 +65,7 @@ def listen_command():
             phrase_time_limit=options.get("phrase_time_limit", 10)
         )
 
-        print("🟢 RAW SPEECH:", text)  # <= SEND THIS OUTPUT TO ME HERE
+        print("🟢 RAW SPEECH:", text)  
 
         if text.startswith("ERROR:"):
             return jsonify({"error": text, "success": False}), 400
@@ -92,12 +77,8 @@ def listen_command():
         print("❌ Speech Recognition Crash:", e)
         return jsonify({"error": str(e), "success": False}), 500
 
+#TEXT TO SPEECH
 
-
-
-# ================================================================
-#                    TEXT TO SPEECH BACKEND
-# ================================================================
 @app.route("/speak", methods=["POST"])
 def speak_out():
     """Still supported — but frontend TTS is used by default."""
@@ -108,10 +89,8 @@ def speak_out():
     threading.Thread(target=speech.speak, args=(data["text"],), daemon=True).start()
     return jsonify({"success": True})
 
+#REMINDERS API
 
-# ================================================================
-#                    REMINDERS API
-# ================================================================
 @app.route("/reminders", methods=["GET"])
 def list_reminders():
     r = reminder_manager.get_reminders()
@@ -136,8 +115,8 @@ def clear_all():
     return jsonify({"success": True})
 
 
-# ================= REMINDER POPUP EVENT API ===================
-last_reminder_served = set()   # Track IDs already announced
+#REMINDER POPUP EVENT API 
+last_reminder_served = set()  
 
 @app.route("/trigger_popup", methods=["GET"])
 def trigger_popup():
@@ -145,21 +124,17 @@ def trigger_popup():
 
     for r in reminders:
         if r["triggered"] and not r.get("popup_acknowledged", False):
-            r["popup_acknowledged"] = True  # prevents repeat popups
+            r["popup_acknowledged"] = True 
 
             return jsonify({
                 "success": True,
-                "message": r["text"],      # must be "message" for frontend
+                "message": r["text"],
                 "id": r["id"],
                 "time": r["time"].strftime("%I:%M %p %d-%b")
             })
 
     return jsonify({"success": False})
 
-
-# ================================================================
-#                HISTORY
-# ================================================================
 @app.route("/history", methods=["GET", "DELETE"])
 def history():
     if request.method == "DELETE":
@@ -168,19 +143,11 @@ def history():
 
     return jsonify({"success": True, "history": assistant.get_history()})
 
-
-# ================================================================
-# START REMINDER THREAD + SERVER
-# ================================================================
-# =================== RUN SERVER ===================
-# ================================================================
-# START REMINDER THREAD + SERVER
-# ================================================================
 if __name__ == '__main__':
     print("🚀 Flask API starting...")
 
-    # <<< YOU WERE MISSING THIS >>>
-    reminder_manager.start()   # background thread NOW running
+   
+    reminder_manager.start() 
 
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port, threaded=True)
